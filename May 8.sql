@@ -592,3 +592,29 @@ delete from Players
 insert into HumanResources.Department(DepartmentID, Name, GroupName, ModifiedDate)
 values
 (20, 'Designing', 'Designers', getdate())
+
+
+
+--	Triggers If Someone Inserts In Certain Time Period
+
+
+create trigger CertainTimePeriod
+on Players
+instead of insert
+as
+begin
+	declare @currenttime time = convert(time, getdate())
+
+	if @currenttime >= '17:00:00' and @currenttime <= '20:00:00'
+	begin
+		raiserror('!!!Inserts are not allowed in this time period!!!', 16, 1)
+		rollback transaction
+		print '--	Insert after 20:00:00 or before 17:00:00	--'
+		return
+	end
+end
+
+
+insert into Players
+values
+(12, 'Patrick Bamford', 'Leeds United', 'England', 'Forward')
