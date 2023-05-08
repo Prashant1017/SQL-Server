@@ -515,3 +515,80 @@ delete from Players
 insert into HumanResources.Department(DepartmentID, Name, GroupName, ModifiedDate)
 values
 (23, 'Design', 'Designers', getdate())
+
+
+create table TelNumber
+(
+	Number1 numeric(10),
+	Number2 numeric(10)
+)
+
+drop table TelNumber
+
+
+alter trigger Prevent_Duplicate_Entries
+on TelNumber
+for insert
+as
+begin
+	if exists
+	(
+		select Number1, Number2 from TelNumber group by Number1, Number2 having count(*) > 1
+	)
+	begin
+		raiserror('!!!Duplicate Entries Are Not Allowed!!!', 16, 1)
+		rollback transaction
+		print 'Please write different numbers.'
+		return
+	end
+end
+
+
+insert into TelNumber
+values
+(9818606682, 9843473156)
+
+
+select * from TelNumber
+
+
+insert into TelNumber
+values
+(9841487666, 9841487666)
+
+
+insert into TelNumber
+values
+(9898989898, 9898989898)
+
+
+--	Triggers If Numbers Are Duplicated
+insert into TelNumber
+values
+(9999999999, 9999999999)
+
+
+-- Triggers When Insert Or Delete Is Used
+select * from Employee_Audit_Test
+
+
+-- Triggers When Insert, Update Or Delete Is Used
+select * from PersonDetails_audit
+
+
+-- Triggers When Insert, Update Or Delete Is Used
+select * from dml_audit_table
+
+
+-- Triggers When Insert, Update Or Delete Is Used
+select * from PlayersAudit
+
+
+--	Triggers When Someone Tries To Delete Data From The Table
+delete from Players  
+
+
+--	Triggers When Someone Tries To Add Data To The Table
+insert into HumanResources.Department(DepartmentID, Name, GroupName, ModifiedDate)
+values
+(20, 'Designing', 'Designers', getdate())
