@@ -423,3 +423,136 @@ select * from FootballPlayers where Country = 'France'
 
 
 select Country, Club, count(*) as Number from FootballPlayers group by Country, Club having count(*) > 1
+
+
+select * from FootballPlayers where Country not in ('Brazil', 'France')
+
+
+update FootballPlayers
+set Club = null
+where id = 14
+
+
+insert into FootballPlayers
+values
+(41, 'Victor Osimhen', 'Nigeria', 'Napoli', 9, 'Forward')
+
+
+select * from FootballPlayers_audit
+
+
+select * from FootballPlayers_backup
+
+
+select * from Cricket_audit
+
+
+select * from CricketBackup
+
+
+create table FManager
+(
+	Managerid int primary key,
+	Manager_Name varchar(50),
+	Manager_Country varchar(50),
+	Manager_Club varchar(50)
+)
+
+
+select distinct Club from FootballPlayers
+
+
+insert into FManager
+values
+(1, 'Mikel Arteta', 'Spain', 'Arsenal'),
+(2, 'Diego Simeone', 'Argentina', 'Atletico Madrid'),
+(3, 'Xavi Hernandez', 'Spain', 'Barcelona'),
+(4, 'Thomas Tuchel', 'Germany', 'Bayern Munich'),
+(5, 'Frank Lampard', 'England', 'Chelsea'),
+(6, 'Simone Inzaghi', 'Italy', 'Inter Milan'),
+(7, 'Maximiliano Allegri', 'Italy', 'Juventus'),
+(8, 'Maurizio Sarri', 'Italy', 'Lazio'),
+(9, 'Jurgen Klopp', 'Germany', 'Liverpool'),
+(10, 'Pep Guardiola', 'Spain', 'Machester City'),
+(11, 'Erik Ten Hag', 'Netherlands', 'Manchester United'),
+(12, 'Luciano Spaletti', 'Italy', 'Napoli'),
+(13, 'Carlo Ancelloti', 'Italy', 'Real Madrid'),
+(14, 'Ryan Mason', 'England', 'Tottenham Hotspur'),
+(15, 'Christophe Galtier', 'France', 'Paris Saint-Germain')
+
+
+select * from FManager
+
+
+select m.Manager_Name, m.Manager_Country, f.Name, f.Country, f.Club 
+from FManager m
+inner join FootballPlayers f
+on m.Manager_Club = f.Club
+order by Manager_Name
+
+
+select * from FManager
+
+
+select Manager_Country, count(*) as Managers from FManager group by Manager_Country
+
+
+insert into FManager
+values
+(16, 'Jose Mourinho', 'Portugal', 'AS Roma'),
+(17, 'Julian Nagelsmann', 'Germany', null),
+(18, 'Eddie Howe', 'England', 'Newcastle United')
+
+
+alter table FManager
+add League_Code int
+
+
+create table FootballLeague
+(
+	LeagueID int primary key,
+	League_Code int,
+	League_Name varchar(50)
+)
+
+
+insert into FootballLeague
+values
+(1, 1, 'Bundesliga'),
+(2, 2, 'Premier League'),
+(3, 3, 'Ligue 1'),
+(4, 4, 'Serie A'),
+(5, 5, 'La Liga')
+
+
+select * from FootballLeague
+
+
+select * from FManager
+
+
+update FManager
+set League_Code = 2
+where Managerid = 18
+
+
+insert into FManager
+values
+(19, 'Roberto De Zerbi', 'Italy', 'Brighton', 2),
+(20, 'Giovanni Gaspereni', 'Italy', 'Atalanta', 4)
+
+
+select * from FManager
+
+
+select m.Manager_Name, m.Manager_Country, m.Manager_Club, l.League_Name
+from FManager m 
+inner join FootballLeague l 
+on m.League_Code = l.League_Code
+order by League_Name
+
+
+select Manager_Country, count(*) as Managers from FManager group by Manager_Country order by Managers
+
+
+select * from FManager where Manager_Country = 'Italy'
