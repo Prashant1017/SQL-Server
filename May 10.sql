@@ -120,7 +120,7 @@ values
 select * from Player
 
 
-select p.PlayerName, p.PlayerCountry, p.PlayerPosition, p.Age, c.ClubName
+select p.PlayerName, p.PlayerCountry, p.PlayerPosition, p.Age, c.ClubName, c.ClubID
 from Player p
 inner join Club c
 on p.ClubID = c.ClubID
@@ -128,13 +128,16 @@ on p.ClubID = c.ClubID
 
 alter view [PlayerClub]
 as
-	select p.PlayerName, p.PlayerCountry, p.PlayerPosition, p.Age, c.ClubName, c.ClubLeague
+	select p.PlayerName, p.PlayerCountry, p.PlayerPosition, p.Age, c.ClubName, c.ClubLeague, c.ClubID
 	from Player p
 	inner join Club c
 	on p.ClubID = c.ClubID
 
 
 select * from PlayerClub
+
+
+select distinct ClubID from PlayerClub
 
 
 select * from Club
@@ -229,12 +232,147 @@ select * from Player where PlayerCountry = 'Brazil'
 
 insert into Player
 values
-(66, 'Vinicius Junior', 'Brazil', 'Forward', 21, 9, 4),
-(61, 'Alisson Becker', 'Brazil', 'Goalkeeper', 29, 8, 1),
-(62, 'Lucas Paqueta', 'Brazil', 'Midfielder', 25, 24, 1),
-(63, 'Rodrygo', 'Brazil', 'Forward', 20, 9, 4),
-(64, 'Emerson Royal', 'Brazil', 'Defender', 23, 17, 1),
-(65, 'Richarlison', 'Brazil', 'Forward', 22, 17, 1)
+(67, 'Rafael Leao', 'Portugal', 'Forward', 21, 2, 3),
+(68, 'Theo Hernandez', 'France', 'Defender', 23, 2, 3),
+(69, 'Patrick Bamford', 'England', 'Forward', 28, 5 ,1),
+(70, 'Wilfried Gnonto', 'Italy', 'Forward', 18, 5, 1),
+(71, 'Alexander Isak', 'Sweden', 'Forward', 21, 12, 1),
+(72, 'Kieran Trippier', 'England', 'Defender', 30, 12, 1),
+(73, 'Lorenzo Pellegrini', 'Italy', 'Midfielder', 24, 18, 3),
+(74, 'Khvicha Kvaratskhelia', 'Georgia', 'Forward', 22, 20, 3),
+(75, 'James Maddison', 'Engalnd', 'Midfielder', 25, 21, 1),
+(76, 'Amadou Onana', 'Belgium', 'Midfielder', 20, 22, 1)
+
+
+select top 5 PlayerCountry, count(*) as Players from Player group by PlayerCountry order by Players desc
+
+
+select * from Club
+
+
+select * from PlayerDetails
+
+
+select distinct ClubName from PlayerDetails
+
+
+select * from PlayerDetails where Age < 23 and LeagueName = 'Premier League'
+
+
+select LeagueName, count(*) as Players from PlayerDetails group by LeagueName 
+
+
+select * from PlayerDetails where PlayerCountry = 'Spain'
+
+
+select * from PlayerDetails where PlayerPosition = 'Midfielder'
+
+
+select * from PlayerDetails where ClubName = 'Bayern Munich'
+
+
+select ClubName , count(*) as Players from PlayerDetails group by ClubName order by Players desc
+
+
+select PlayerName, ClubName from PlayerDetails
+
+
+select * from Manager
+
+
+select * from Club
+
+
+select c.ClubName, m.ManagerName
+from Club c
+inner join Manager m
+on c.ClubID = m.ClubID
+
+
+
+insert into Manager
+values
+(31, 'Edin Terzic', 15, 'Croatia'),
+(32, null, 22, null),
+(33, 'Marco Rose', 23, 'Germany'),
+(34, 'David Moyes', 24, 'Scotland'),
+(35, 'Steve Cooper', 25, 'England')
+
+
+delete from Club
+where ClubID = 19
+
+
+select PlayerCountry, count(*) as Players from PlayerDetails group by PlayerCountry
+
+
+select LeagueName, avg(Age) as Average from PlayerDetails group by LeagueName
+
+
+select * from PlayerDetails order by Age desc
+
+
+select * from Manager
+
+
+select * from Club
+
+
+select ManagerCountry, count(*) as Managers from Manager group by ManagerCountry order by Managers desc
+
+
+select * from Manager where ManagerCountry = 'Italy'
+
+
+select * from PlayerDetails where Age = (select max(Age) from PlayerDetails)
+
+
+select * from PlayerDetails where Age < 25 and PlayerPosition = 'Forward'
+
+
+select PlayerPosition, count(*) as Players from PlayerDetails group by PlayerPosition
+
+
+select ClubName, avg(Age) as AverageAge from PlayerDetails group by ClubName order by AverageAge desc
+
+
+select * from PlayerDetails order by PlayerName
 
 
 select * from Player
+
+
+update Player
+set PlayerName = 'Federico Valverde', PlayerCountry = 'Uruguay', PlayerPosition = 'Midfielder'
+where PlayerID = 66
+
+
+create procedure IndividualDetail @Name varchar(50)
+as 
+begin
+	select * from PlayerDetails where PlayerName = @Name
+end
+
+
+execute IndividualDetail 'maSon mount'
+
+
+create trigger NoDeletion
+on PlayerDetails
+instead of delete
+as
+begin	
+	raiserror('***	THE DATAS OF THIS TABLE CANNOT BE DELETED	***', 16, 1)
+	rollback transaction
+	print '---	You dont have access to delete the contents of this table.	---'
+end
+
+
+delete from PlayerDetails
+where PlayerName = 'Robert Lewandowski'
+
+
+select * from PlayerDetails
+
+
+select * from League
