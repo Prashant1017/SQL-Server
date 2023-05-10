@@ -376,3 +376,22 @@ select * from PlayerDetails
 
 
 select * from League
+
+
+select * from PlayerDetails
+
+
+select PlayerCountry, max(Age) as Oldest from PlayerDetails group by PlayerCountry order by Oldest desc
+
+
+select Age, PlayerPosition, count(*) as Players from PlayerDetails group by Age, PlayerPosition order by Players desc
+
+
+select * from PlayerDetails where Age > 30 and (PlayerPosition = 'Midfielder' or PlayerPosition = 'Forward')
+
+
+select * from PlayerDetails where LeagueName = 'Premier League' and (PlayerCountry = 'France' or PlayerCountry = 'Brazil')
+
+
+select * from PlayerDetails where PlayerCountry = (select PlayerCountry from PlayerDetails where PlayerName = 'Lucas Paqueta')
+and PlayerName <> 'Lucas Paqueta'
