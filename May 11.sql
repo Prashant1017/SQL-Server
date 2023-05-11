@@ -91,7 +91,7 @@ FROM Sales.SalesPerson
 GROUP BY SalesQuota with rollup
 
 
-select left_shift(12345, 5)
+select left_shift (12345, 5)
 
 
 select right_shift(12345, 5)
@@ -138,3 +138,47 @@ from openjson(@json) with
     skills NVARCHAR(MAX) '$.info.skill' AS JSON
     )
 OUTER APPLY OPENJSON(skills) WITH (skill NVARCHAR(8) '$')
+
+
+select * from FootballPlayers
+
+
+select * from FootballLeague
+
+
+insert into FootballPlayers
+values
+(13, 'Luis Sinisterra', 'Colombia', 'Leeds United', 23, 'Forward'),
+(14, 'Mathys Tel', 'France', 'Bayern Munich', 39, 'Forward')
+
+
+select * from FootballPlayers_audit
+
+
+select * from FootballPlayers_backup
+
+
+select * from FootballPlayers where Club is null
+
+
+delete from FootballPlayers
+where id = 14
+
+
+select Club, count(*) as Players from FootballPlayers group by Club order by Players desc
+
+
+select * from FootballPlayers where Club = 'Bayern Munich'
+
+
+select Country, count(*) as Players from FootballPlayers group by Country order by Players desc
+
+
+select * from FootballPlayers where Country = 'Brazil'
+
+
+select * from Cricket
+
+
+select Country, count(*) as Players from Cricket group by Country order by Players desc
+
