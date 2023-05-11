@@ -101,3 +101,40 @@ select bit_count(0xabc)
 
 
 select @@dbts
+
+
+select @@LANGUAGE
+
+
+select @@LANGID
+
+
+select @@LOCK_TIMEOUT
+
+
+SELECT CRYPT_GEN_RANDOM(50)
+
+
+SELECT CRYPT_GEN_RANDOM(4, 0x25F18060)
+
+
+declare @json varchar(max)
+
+
+set @json = N'[
+	{"id": 2, "info": {"name": "John", "surname": "Terry"}, "age": 25},
+	{"id": 3, "info": {"name": "John", "surname": "Wick", "skill": ["Bikes", "Horse Riding", "One on one combat"]}, "dob": "2001-04-12"}
+]'
+
+
+select id, FirstName, LastName, Age, DOB, skills
+from openjson(@json) with
+(
+	id INT 'strict $.id',
+    FirstName NVARCHAR(50) '$.info.name',
+    LastName NVARCHAR(50) '$.info.surname',
+    Age INT '$.age',
+    DOB DATETIME2 '$.dob',
+    skills NVARCHAR(MAX) '$.info.skill' AS JSON
+    )
+OUTER APPLY OPENJSON(skills) WITH (skill NVARCHAR(8) '$')
