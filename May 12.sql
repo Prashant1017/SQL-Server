@@ -236,3 +236,9 @@ select Country, count(*) as NumberOfPlayers from Players group by Country order 
 
 
 select * from Players where Country = 'South Africa'
+
+
+select * from Players order by RunsScored desc
+
+
+select * from Players where RunsScored > 10000 and WicketsTaken > 300
