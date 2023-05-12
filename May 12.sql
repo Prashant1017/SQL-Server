@@ -174,3 +174,54 @@ select * from Players
 
 
 select * from Players where BowlingStyle is null
+
+
+select * from Player_audit
+
+
+select * from PlayerBackup
+
+
+select top 5 * from Players where BattingStyle = 'Right-handed' order by RunsScored desc
+
+
+select * from Players where Country = 'South Africa'
+
+
+select Age, count(*) as Players from Players group by Age order by Age desc
+
+
+select * from Players where Age = 55
+
+
+select * from Players where RunsScored > 5000
+
+
+select * from Players where Country = 'Australia' and WicketsTaken > 50
+
+
+select * from Players where Age between 25 and 30
+
+
+select Name, RunsScored from Players order by RunsScored desc
+
+
+select Country, cast(avg(RunsScored) as int) as Runs from Players group by Country order by Runs desc
+
+
+select * from Players where Country = 'Afghanistan'
+
+
+select * from Players where RunsScored > 5000 and WicketsTaken > 100
+
+
+select Name, RunsScored, WicketsTaken from Players order by RunsScored desc
+
+
+select Country, avg(Age) as AverageAge from Players group by Country order by AverageAge
+
+
+select * from Players where Age < 30 and RunsScored > 5000
+
+
+select count(*) as TotalPlayers, sum(RunsScored) as TotalRuns, sum(WicketsTaken) as TotalWickets from Players
