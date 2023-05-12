@@ -84,22 +84,18 @@ select * from Players
 
 insert into Players
 values
-    (36, 'Kumar Sangakkara', 44, 'Sri Lanka', 'Left-handed', 'Right-arm off break', 14234, 93),
-    (37, 'Chris Gayle', 42, 'West Indies', 'Left-handed', 'Right-arm off break', 10480, 167),
-    (38, 'Kieron Pollard', 34, 'West Indies', 'Right-handed', 'Right-arm medium', 2779, 59),
-    (39, 'Tamim Iqbal', 33, 'Bangladesh', 'Left-handed', 'Right-arm off break', 7457, 16),
-    (40, 'Quinton de Kock', 29, 'South Africa', 'Left-handed', 'Right-arm off break', 5135, 0),
-    (41, 'Kagiso Rabada', 26, 'South Africa', 'Right-handed', 'Right-arm fast', 228, 117),
-    (42, 'Mohammed Shami', 31, 'India', 'Right-handed', 'Right-arm fast', 399, 182),
-    (43, 'Shane Watson', 40, 'Australia', 'Right-handed', 'Right-arm mediumfast', 5757, 168),
-    (44, 'Shoaib Malik', 40, 'Pakistan', 'Right-handed', 'Right-arm off break', 7534, 158),
-    (45, 'Mushfiqur Rahim', 34, 'Bangladesh', 'Right-handed', 'Right-arm off break', 6323, 2),
-    (46, 'Brendon McCullum', 40, 'New Zealand', 'Right-handed', 'Right-arm medium', 6453, 1),
-    (47, 'Ravindra Jadeja', 33, 'India', 'Left-handed', 'Left-arm orthodox', 5931, 187),
-    (48, 'Jos Buttler', 30, 'England', 'Right-handed', 'Right-arm medium', 3843, 0),
-    (49, 'Andre Russell', 33, 'West Indies', 'Right-handed', 'Right-arm fast', 1085, 65),
-    (50, 'Jason Holder', 29, 'West Indies', 'Right-handed', 'Right-arm fastmedium', 2022, 136),
-    (51, 'Rashid Khan', 23, 'Afghanistan', 'Right-handed', 'Right-arm leg break', 717, 141);
+    (61, 'Hashim Amla', 40, 'South Africa', 'Right-handed', 'Right-arm off break', 12000, 5),
+	(62, 'Alaistar Cook', 38, 'England', 'Left-handed', 'Right-arm medium', 14000, 1),
+	(63, 'Rahul Dravid', 46, 'India', 'Right-handed', null, 14500, 0),
+	(64, 'Jacques Kallis', 45, 'South Africa', 'Right-handed', 'Right-arm mediumfast', 14500, 450),
+	(65, 'Ben Stokes', 30, 'England', 'Left-handed', 'Right-arm fastmedium', 8300, 175),
+	(66, 'Brad Hodge', 47, 'Australia', 'Right-handed', 'Right-arm off break', 7600, 89),
+	(67, 'Adam Gilchrist', 49, 'Australia', 'Left-handed', 'Right-arm off break', 10986, 1),
+	(68, 'Daniel Vettori', 50, 'New Zealand', 'Left-handed', 'Left-arm orthodox', 3400, 345),
+	(69, 'Dale Steyn', 38, 'South Africa', 'Right-handed', 'Right-arm fast', 2500, 480),
+	(70, 'Shoaib Akhtar', 45, 'Pakistan', 'Right-handed', 'Right-arm fast', 2345, 383),
+	(71, 'James Anderson', 37, 'England', 'Left-handed', 'Right-arm fastmedium', 3000, 620)
+
 
 
 
@@ -225,3 +221,18 @@ select * from Players where Age < 30 and RunsScored > 5000
 
 
 select count(*) as TotalPlayers, sum(RunsScored) as TotalRuns, sum(WicketsTaken) as TotalWickets from Players
+
+
+select * from Players order by WicketsTaken
+
+
+select * from Players where Country = 'Australia' order by RunsScored desc
+
+
+select * from Players where PlayerID > 60
+
+
+select Country, count(*) as NumberOfPlayers from Players group by Country order by NumberOfPlayers desc
+
+
+select * from Players where Country = 'South Africa'
