@@ -121,3 +121,8 @@ select * from PersonFullDetails
 
 delete from PersonFullDetails
 where FullName = 'Ken'
+
+
+update PersonFullDetails
+set PhoneNumber = 879879
+where FullName = 'Trent'
