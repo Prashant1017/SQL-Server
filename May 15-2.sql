@@ -104,6 +104,9 @@ select * from Manager where ClubID is null
 select * from Player
 
 
+select * from Player where PlayerName = 'Ansu Fati'
+
+
 select * from PlayerDetails
 
 
@@ -114,3 +117,8 @@ select * from PlayerDetails where LeagueName <> 'Premier League' order by Player
 
 
 select * from PlayerDetails where LeagueName = 'Premier League' order by PlayerPosition
+
+
+update Player
+set PlayerName = 'Marcos Llorente', PlayerPosition = 'Midfeilder', ClubID = 14
+where PlayerId = 91

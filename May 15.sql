@@ -151,3 +151,39 @@ select Name, ProductNumber, cast((StandardCost + ListPrice) as int) as TotalCost
 
 
 select cast(sum(ListPrice) as int) as Total, cast(max(ListPrice) as int) as Maximum, cast(min(ListPrice) as int) as Minimum, cast(avg(ListPrice) as int) as Average from Production.Product
+
+
+select * from ScrapProductDetails
+
+
+select distinct ProductName from ScrapProductDetails
+
+
+select ProductName, count(*) as TotalProducts from ScrapProductDetails group by ProductName having count(*) > 2 
+order by TotalProducts desc
+
+
+select * from PersonFullDetails
+
+
+select * from Players
+
+
+delete from Players
+where id = 11
+
+
+insert into Players
+values
+(12, 'Achraf Hakimi', 'Paris Saint-Germain', 'Morocco', 'Defender')
+
+
+select * from PlayersAudit
+
+
+select * from ProductionManager
+
+
+select * from FootballPlayers
+
+
