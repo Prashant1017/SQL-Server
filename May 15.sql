@@ -145,3 +145,9 @@ select * from FManager
 
 delete from FootballPlayers
 where id = 43
+
+
+select Name, ProductNumber, cast((StandardCost + ListPrice) as int) as TotalCost from Production.Product order by TotalCost desc
+
+
+select cast(sum(ListPrice) as int) as Total, cast(max(ListPrice) as int) as Maximum, cast(min(ListPrice) as int) as Minimum, cast(avg(ListPrice) as int) as Average from Production.Product
