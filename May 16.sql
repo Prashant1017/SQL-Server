@@ -91,7 +91,7 @@ select * from EmpFullDetails where Experience > 15
 select * from EmpFullDetails where Age < 40 and Experience > 15
 
 
-select * from EmpFullDetails order by Age
+select Age, count(*) as Total from EmpFullDetails group by Age 
 
 
 select FirstName, MiddleName, LastName, Age - Experience as StartAge from EmpFullDetails order by StartAge
@@ -100,7 +100,7 @@ select FirstName, MiddleName, LastName, Age - Experience as StartAge from EmpFul
 select JobTitle, count(*) as Total from EmpFullDetails group by JobTitle order by Total desc
 
 
-select JobTitle, Age, count(*) as Total from EmpFullDetails group by JobTitle, Age 
+select JobTitle, Age, count(*) as Total from EmpFullDetails group by JobTitle, Age order by Total desc 
 
 
 select MaritalStatus, count(*) as People from EmpFullDetails group by MaritalStatus
@@ -119,3 +119,30 @@ select * from EmpFullDetails where JobTitle like '%supervisor%' order by JobTitl
 
 
 select * from EmpFullDetails where City = 'Seattle'
+
+
+select StateProvinceName, count(*) as Total from EmpFullDetails group by StateProvinceName order by Total desc
+
+
+select * from Sales.Customer
+
+
+select * from Sales.vIndividualCustomer
+
+
+select * from Sales.vPersonDemographics
+
+
+select * from Sales.vIndividualCustomer where AddressLine2 is not null
+
+
+select * from Sales.vIndividualCustomer where LastName like '%son'
+
+
+select * from Sales.vIndividualCustomer where Suffix is not null
+
+
+select PhoneNumberType, count(*) as Total from Sales.vIndividualCustomer group by PhoneNumberType
+
+
+select * from Sales.vIndividualCustomer where MiddleName is not null
