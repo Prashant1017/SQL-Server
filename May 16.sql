@@ -71,3 +71,51 @@ select concat_ws(' ', FirstName, MiddleName, LastName) as FullName from EmpFullD
 
 select * from EmpFullDetails where Age = (select max(Age) from EmpFullDetails)
 or Experience = (select max(Experience) from EmpFullDetails)
+
+
+select datediff(year, BirthDate, HireDate) as Starting from EmpFullDetails order by Starting
+
+
+select * from EmpFullDetails where Age between 25 and 50
+
+
+select * from EmpFullDetails where FirstName like 'K%'
+
+
+select City, count(*) as Peoples from EmpFullDetails group by City
+
+
+select * from EmpFullDetails where Experience > 15
+
+
+select * from EmpFullDetails where Age < 40 and Experience > 15
+
+
+select * from EmpFullDetails order by Age
+
+
+select FirstName, MiddleName, LastName, Age - Experience as StartAge from EmpFullDetails order by StartAge
+
+
+select JobTitle, count(*) as Total from EmpFullDetails group by JobTitle order by Total desc
+
+
+select JobTitle, Age, count(*) as Total from EmpFullDetails group by JobTitle, Age 
+
+
+select MaritalStatus, count(*) as People from EmpFullDetails group by MaritalStatus
+
+
+select * from EmpFullDetails where MaritalStatus = 'S' order by Age desc
+
+
+select * from EmpFullDetails where BirthDate < '1960-01-01'
+
+
+select * from EmpFullDetails where Age >= 70
+
+
+select * from EmpFullDetails where JobTitle like '%supervisor%' order by JobTitle
+
+
+select * from EmpFullDetails where City = 'Seattle'
