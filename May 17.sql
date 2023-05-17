@@ -95,3 +95,24 @@ select * from ProductFullDetails where ProductID = 910
 
 
 select * from ProductFullDetails where JobTitle = 'Purchasing Manager'
+
+
+select * from PersonDemographics
+
+
+select datediff(year, Birthdate, getdate()) as Age, MaritalStatus, Gender from PersonDemographics
+
+
+select datediff(day, DateFirstPurchase, getdate()) as FirstPurchase from PersonDemographics
+
+
+select * from Scrap
+
+
+select * from ScrapReason
+
+
+select * from ScrapProducts
+
+
+select * from ScrapProductDetails
