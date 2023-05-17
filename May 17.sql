@@ -116,3 +116,6 @@ select * from ScrapProducts
 
 
 select * from ScrapProductDetails
+
+
+select Scrap, count(*) as Reasons from ScrapProductDetails group by Scrap order by Reasons desc
