@@ -86,3 +86,12 @@ select distinct JobTitle from ProductFullDetails
 
 
 select distinct FullName from ProductFullDetails
+
+
+select FullName, JobTitle, count(*) as Number from ProductFullDetails group by FullName, JobTitle order by Number desc
+
+
+select * from ProductFullDetails where ProductID = 910
+
+
+select * from ProductFullDetails where JobTitle = 'Purchasing Manager'
