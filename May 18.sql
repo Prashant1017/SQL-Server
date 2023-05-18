@@ -196,3 +196,40 @@ select * from ProductDetails
 
 
 select * from ProductDetails order by list_price desc
+
+
+select * from production.stocks where quantity = 0
+
+
+select s.store_name, p.product_name, st.quantity
+from production.stocks st
+inner join sales.stores s on st.store_id = s.store_id
+inner join production.products p on st.product_id = p.product_id
+
+
+alter view [Stocks] as 
+select s.store_name, p.product_name, st.quantity
+from production.stocks st
+inner join sales.stores s on st.store_id = s.store_id
+inner join production.products p on st.product_id = p.product_id
+
+
+select * from Stocks
+
+
+select store_name, sum(quantity) as TotalProducts from Stocks group by store_name
+
+
+select sum(quantity) from Stocks
+
+
+select * from Stocks order by quantity desc
+
+
+select product_name,  sum(quantity) as TotalProducts from Stocks group by product_name order by TotalProducts desc
+
+
+select distinct product_name from Stocks
+
+
+select * from Stocks order by product_name
