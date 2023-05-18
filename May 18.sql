@@ -190,3 +190,9 @@ select distinct StaffName from OrderFullDetails
 
 
 execute BikeDetails 222
+
+
+select * from ProductDetails
+
+
+select * from ProductDetails order by list_price desc
