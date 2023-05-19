@@ -106,3 +106,15 @@ execute BikeDetails 111
 
 
 select * from production.products
+
+
+select * from sales.orders
+
+
+select *, datediff(day, order_date, shipped_date) as DeliveredWithin from sales.orders 
+
+
+select * from CustomerOrders
+
+
+select * from sales.orders where shipped_date is null
