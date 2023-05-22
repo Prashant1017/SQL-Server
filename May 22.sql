@@ -106,3 +106,32 @@ with cte_cat as
 )
 
 select * from cte_cat
+
+
+select * from Sales.ShoppingCartItem
+
+
+select * from Sales.SalesTaxRate
+
+
+create table CityRoute
+(
+	City_from varchar(35),
+	City_to varchar(35),
+	Distance decimal(5,1)
+)
+
+
+insert into CityRoute
+values
+('Groningen', 'Heerenveen', 61.4),
+('Groningen', 'Harlingen', 91.6),
+('Harlingen', 'Wieringerwerf', 52.3),
+('Wieringerwerf', 'Hoorn', 26.5),
+('Hoorn', 'Amsterdam', 46.1),
+('Amsterdam', 'Haarlem', 30),
+('Heerenveen', 'Lelystad', 74),
+('Lelystad', 'Amsterdam', 57.2)
+
+
+select * from CityRoute
