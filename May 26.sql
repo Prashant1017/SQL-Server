@@ -111,6 +111,42 @@ select * from Sales.SalesOrderDetail
 select ModifiedDate, LineTotal from Sales.SalesOrderDetail
 
 
-select ModifiedDate, cast(sum(LineTotal) as int) as TotalPrice from Sales.SalesOrderDetail 
+select format(ModifiedDate, 'yyyy-MM-dd') as Date, cast(sum(LineTotal) as int) as TotalPrice 
+into DailyAnnual
+from Sales.SalesOrderDetail 
 group by ModifiedDate
-order by ModifiedDate
+
+
+select * from DailyAnnual order by TotalPrice desc
+
+
+select * from Staffs
+
+
+insert into Staffs
+values
+(6, 'Parasar', 5),
+(7, 'Ural', 4),
+(8, 'Sakushal', 6),
+(9, 'Sudan', 6),
+(10, 'Bibash', 9)
+
+
+select * from Staffs
+
+
+with cte as
+(
+	select id, Name, manager_id, 0 as level, cast(Name as varchar(max)) as lineage
+	from Staffs
+	where manager_id is null
+
+	union all
+
+	select s.id, s.Name, s.manager_id, level + 1, c.lineage + '<-' + s.Name
+	from Staffs s
+	inner join cte c
+	on s.manager_id = c.id
+)
+
+select * from cte order by lineage
