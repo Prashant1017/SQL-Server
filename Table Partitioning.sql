@@ -139,3 +139,266 @@ JOIN sys.destination_data_spaces dds ON p.partition_number = dds.destination_id
 JOIN sys.filegroups f ON dds.data_space_id = f.data_space_id
 WHERE OBJECT_NAME(OBJECT_ID) = 'orders'
 order by partition_number;
+
+
+
+--	Vertical Partition	--
+
+
+select * from Sales.SalesOrderHeader
+
+
+create table SalesPart1
+(
+	SalesOrderID int primary key,
+	OrderDate date,
+	DueDate date,
+	ShipDate date
+)
+
+
+create table SalesPart2
+(
+	SalesOrderID int primary key,
+	Status int,
+	SalesOrderNumber varchar(20),
+	PurchaseOrderNumber varchar(20),
+	AccountNumber varchar(20)
+)
+
+insert into SalesPart1
+select SalesOrderID, OrderDate, DueDate, ShipDate
+from Sales.SalesOrderHeader
+
+
+insert into SalesPart2
+select SalesOrderID, Status, SalesOrderNumber, PurchaseOrderNumber, AccountNumber
+from Sales.SalesOrderHeader
+
+
+select * from SalesPart1
+
+
+set statistics time on
+
+
+select * from Sales.SalesOrderHeader
+
+
+select * from SalesPart1
+
+
+
+alter database AdventureWorks2019
+add filegroup January
+
+alter database AdventureWorks2019
+add filegroup February
+
+alter database AdventureWorks2019
+add filegroup March
+
+alter database AdventureWorks2019
+add filegroup April
+
+alter database AdventureWorks2019
+add filegroup May
+
+alter database AdventureWorks2019
+add filegroup June
+
+alter database AdventureWorks2019
+add filegroup July
+
+alter database AdventureWorks2019
+add filegroup August
+
+alter database AdventureWorks2019
+add filegroup September
+
+alter database AdventureWorks2019
+add filegroup October
+
+alter database AdventureWorks2019
+add filegroup November
+
+alter database AdventureWorks2019
+add filegroup December
+
+
+select name as groups 
+from sys.filegroups
+where type = 'fg'
+
+
+alter database AdventureWorks2019
+add file
+(
+	name = Jan,
+	filename = 'D:\Data\Jan.ndf',
+	size = 3072 kb,
+	maxsize = unlimited,
+	filegrowth = 1024 kb
+) to filegroup [January]
+
+alter database AdventureWorks2019
+add file
+(
+	name = Feb,
+	filename = 'D:\Data\Feb.ndf',
+	size = 3072 kb,
+	maxsize = unlimited,
+	filegrowth = 1024 kb
+) to filegroup [February]
+
+alter database AdventureWorks2019
+add file
+(
+	name = Mar,
+	filename = 'D:\Data\Mar.ndf',
+	size = 3072 kb,
+	maxsize = unlimited,
+	filegrowth = 1024 kb
+) to filegroup [March]
+
+alter database AdventureWorks2019
+add file
+(
+	name = Apr,
+	filename = 'D:\Data\Apr.ndf',
+	size = 3072 kb,
+	maxsize = unlimited,
+	filegrowth = 1024 kb
+) to filegroup [April]
+
+alter database AdventureWorks2019
+add file
+(
+	name = May,
+	filename = 'D:\Data\May.ndf',
+	size = 3072 kb,
+	maxsize = unlimited,
+	filegrowth = 1024 kb
+) to filegroup [May]
+
+alter database AdventureWorks2019
+add file
+(
+	name = Jun,
+	filename = 'D:\Data\Jun.ndf',
+	size = 3072 kb,
+	maxsize = unlimited,
+	filegrowth = 1024 kb
+) to filegroup [June]
+
+alter database AdventureWorks2019
+add file
+(
+	name = Jul,
+	filename = 'D:\Data\Jul.ndf',
+	size = 3072 kb,
+	maxsize = unlimited,
+	filegrowth = 1024 kb
+) to filegroup [July]
+
+alter database AdventureWorks2019
+add file
+(
+	name = Aug,
+	filename = 'D:\Data\Aug.ndf',
+	size = 3072 kb,
+	maxsize = unlimited,
+	filegrowth = 1024 kb
+) to filegroup [August]
+
+alter database AdventureWorks2019
+add file
+(
+	name = Sep,
+	filename = 'D:\Data\Sep.ndf',
+	size = 3072 kb,
+	maxsize = unlimited,
+	filegrowth = 1024 kb
+) to filegroup [September]
+
+alter database AdventureWorks2019
+add file
+(
+	name = Oct,
+	filename = 'D:\Data\Oct.ndf',
+	size = 3072 kb,
+	maxsize = unlimited,
+	filegrowth = 1024 kb
+) to filegroup [October]
+
+alter database AdventureWorks2019
+add file
+(
+	name = Nov,
+	filename = 'D:\Data\Nov.ndf',
+	size = 3072 kb,
+	maxsize = unlimited,
+	filegrowth = 1024 kb
+) to filegroup [November]
+
+alter database AdventureWorks2019
+add file
+(
+	name = Dec,
+	filename = 'D:\Data\Dec.ndf',
+	size = 3072 kb,
+	maxsize = unlimited,
+	filegrowth = 1024 kb
+) to filegroup [December]
+
+
+select 
+	name as FileName,
+	physical_name as FilePath
+from sys.database_files
+where type_desc = 'rows'
+
+
+create partition function [PartitionByMonth] (datetime)
+as range right for values
+('20140201', '20140301', '20140401', '20140501', '20140601', '20140701', '20140801', '20140901', '20141001',
+'20141101', '20141201')
+
+
+create partition scheme PartitionByMonthScheme
+as partition PartitionByMonth
+to
+(January, February, March, April, May, June, July, August, September, October, November, December)
+
+
+
+create table Reports
+(
+	ReportDate datetime primary key,
+	MonthlyReport varchar(max)
+) on PartitionByMonthScheme (ReportDate)
+
+
+insert into Reports
+select '20140105', 'ReportJanuary' union all
+select '20140205', 'ReportFebruary' union all
+select '20140305', 'ReportMarch' union all
+select '20140405', 'ReportApril' union all
+select '20140505', 'ReportMay' union all
+select '20140605', 'ReportJune' union all
+select '20140705', 'ReportJuly' union all
+select '20140805', 'ReportAugust' union all
+select '20140905', 'ReportSeptember' union all
+select '20141005', 'ReportOctober' union all
+select '20141105', 'ReportNovember' union all
+select '20141205', 'ReportDecember' 
+
+
+select 
+	p.partition_number as PartitionNumber,
+	f.name as PartitionFileGroup,
+	p.rows as NumberOfRows
+from sys.partitions p
+join sys.destination_data_spaces dds on p.partition_number = dds.destination_id
+join sys.filegroups f on dds.data_space_id = f.data_space_id
+where object_name(object_id) = 'Reports'
