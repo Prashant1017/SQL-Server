@@ -1,3 +1,6 @@
+--	Table Partitioning	--
+
+
 select * from Sales.SalesOrderHeader
 
 
