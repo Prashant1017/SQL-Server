@@ -96,3 +96,43 @@ select * from Employee_Details
 
 
 select * from Production.Illustration
+
+
+select * from HumanResources.JobCandidate
+
+
+if object_id('Resumes') is not null
+drop table Resumes
+
+
+create table Resumes
+(
+	CandidateID int identity primary key,
+	CandidateResume xml
+)
+
+
+insert into Resumes
+select Resume 
+from HumanResources.JobCandidate
+
+
+select * from Resumes
+
+
+--		Declaring Variable As XML Data Type		--
+
+
+declare @resume xml
+
+select @resume = CandidateResume
+from Resumes 
+where CandidateID = 2
+
+select @resume as Resume
+
+
+select * from Resumes
+
+
+select * from Employee_Details
