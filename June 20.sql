@@ -97,3 +97,11 @@ SELECT *    FROM  Sales.SalesOrderDetail
 WHERE ProductID = 776
 OPTION (RECOMPILE)
 select * from sys.dm_exec_query_optimizer_info where counter like 'search%'
+
+
+-- Query to get cached result
+select cplan.usecounts, cplan.objtype, qtext.text, qplan.query_plan
+from sys.dm_exec_cached_plans as cplan
+cross apply sys.dm_exec_sql_text (plan_handle) as qtext
+cross apply sys.dm_exec_query_plan (plan_handle) as qplan
+order by cplan.usecounts desc
